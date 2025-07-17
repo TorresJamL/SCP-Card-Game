@@ -1,14 +1,108 @@
-[gd_scene load_steps=3 format=3 uid="uid://jr41nh18wb3y"]
+[gd_scene load_steps=10 format=3 uid="uid://jr41nh18wb3y"]
 
-[ext_resource type="Script" path="res://scripts/CardManager.gd" id="1_745mg"]
-[ext_resource type="PackedScene" uid="uid://c7avo2fggwvwx" path="res://scenes/card.tscn" id="2_4xdqr"]
+[ext_resource type="Script" uid="uid://bwiwideveui77" path="res://scripts/CardManager.gd" id="1_745mg"]
+[ext_resource type="PackedScene" uid="uid://bac5e474yqat6" path="res://scenes/CardSlot.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://dufr8hpls00nw" path="res://scripts/CardSlot.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://dnou0k5jmnu0d" path="res://scripts/deck.gd" id="5_o6xl0"]
+[ext_resource type="Script" uid="uid://c2ipf14thu0e3" path="res://scripts/PlayerHand.gd" id="5_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://bvcgwkfry6dd" path="res://assets/art/cardback.png" id="6_o6xl0"]
+[ext_resource type="Script" uid="uid://b4gclswb0xh8t" path="res://scripts/input_manager.gd" id="7_o6xl0"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o6xl0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6xl0"]
+size = Vector2(66, 92)
 
 [node name="main" type="Node2D"]
 
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("1_745mg")
 
-[node name="card" parent="CardManager" instance=ExtResource("2_4xdqr")]
+[node name="CardSlots" type="Node2D" parent="."]
 
-[node name="card2" parent="CardManager" instance=ExtResource("2_4xdqr")]
-position = Vector2(76, 0)
+[node name="CardSlot_1" parent="CardSlots" instance=ExtResource("3_sugp2")]
+position = Vector2(180, 226)
+script = ExtResource("4_jyhfs")
+
+[node name="CardSlot_2" parent="CardSlots" instance=ExtResource("3_sugp2")]
+position = Vector2(250, 226)
+script = ExtResource("4_jyhfs")
+
+[node name="CardSlot_3" parent="CardSlots" instance=ExtResource("3_sugp2")]
+position = Vector2(320, 226)
+script = ExtResource("4_jyhfs")
+
+[node name="CardSlot_4" parent="CardSlots" instance=ExtResource("3_sugp2")]
+position = Vector2(390, 226)
+script = ExtResource("4_jyhfs")
+
+[node name="CardSlot_5" parent="CardSlots" instance=ExtResource("3_sugp2")]
+position = Vector2(460, 226)
+script = ExtResource("4_jyhfs")
+
+[node name="CardSlot_6" parent="CardSlots" instance=ExtResource("3_sugp2")]
+position = Vector2(180, 130)
+script = ExtResource("4_jyhfs")
+
+[node name="CardSlot_7" parent="CardSlots" instance=ExtResource("3_sugp2")]
+position = Vector2(250, 130)
+script = ExtResource("4_jyhfs")
+
+[node name="CardSlot_8" parent="CardSlots" instance=ExtResource("3_sugp2")]
+position = Vector2(320, 130)
+script = ExtResource("4_jyhfs")
+
+[node name="CardSlot_9" parent="CardSlots" instance=ExtResource("3_sugp2")]
+position = Vector2(390, 130)
+script = ExtResource("4_jyhfs")
+
+[node name="CardSlot_10" parent="CardSlots" instance=ExtResource("3_sugp2")]
+position = Vector2(460, 130)
+script = ExtResource("4_jyhfs")
+
+[node name="PlayerHand" type="Node2D" parent="."]
+script = ExtResource("5_tbgi4")
+
+[node name="Area2D" type="Area2D" parent="PlayerHand"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHand/Area2D"]
+position = Vector2(320, 330)
+shape = SubResource("WorldBoundaryShape2D_o6xl0")
+
+[node name="Deck" type="Node2D" parent="."]
+z_index = -2
+position = Vector2(600, 300)
+script = ExtResource("5_o6xl0")
+
+[node name="DeckSprite" type="Sprite2D" parent="Deck"]
+texture_filter = 1
+texture = ExtResource("6_o6xl0")
+
+[node name="Area2D" type="Area2D" parent="Deck"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deck/Area2D"]
+shape = SubResource("RectangleShape2D_o6xl0")
+
+[node name="Count" type="RichTextLabel" parent="Deck"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+texture_repeat = 1
+offset_left = -32.0
+offset_top = -45.0
+offset_right = -22.0
+offset_bottom = -22.0
+text = "0"
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("7_o6xl0")
+
+[node name="Button" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="area_entered" from="PlayerHand/Area2D" to="PlayerHand" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="PlayerHand/Area2D" to="PlayerHand" method="_on_area_2d_area_exited"]
