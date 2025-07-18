@@ -57,11 +57,10 @@ func on_hover_off_card(card):
 		highligt_card(card, false)
 		# check if we've hovered off one card and straight onto another card
 		var new_card_hovered = raycast_check_for_cards()
-		if new_card_hovered:
+		if new_card_hovered: ###! FOCUS POINT
 			highligt_card(new_card_hovered, true)
 		else:
 			is_hovering_on_card = false
-
 
 func highligt_card(card, hovered:bool):
 	if hovered:
@@ -70,7 +69,6 @@ func highligt_card(card, hovered:bool):
 	else:
 		card.scale = Vector2(BASE_SCALE, BASE_SCALE)
 		card.z_index = 1
-
 
 func raycast_check_for_card_slot():
 	var space_state = get_world_2d().direct_space_state
@@ -82,7 +80,6 @@ func raycast_check_for_card_slot():
 	if result.size() > 0:
 		return result[0].collider.get_parent()
 	return null
-	
 
 func raycast_check_for_cards():
 	var space_state = get_world_2d().direct_space_state
@@ -96,12 +93,10 @@ func raycast_check_for_cards():
 		return get_card_with_highest_z_index(result)
 	return null
 
-
 func get_card_with_highest_z_index(cards):
 	# Assume the first card passed in has the highest Z-index
 	var highest_z_card = cards[0].collider.get_parent()
 	var highest_z_index = highest_z_card.z_index
-	
 	# Loop through the rest of the cards checking for a higher z index
 	for i in range(1, cards.size()):
 		var current_card = cards[i].collider.get_parent()
