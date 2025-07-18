@@ -8,7 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bvcgwkfry6dd" path="res://assets/art/cardback.png" id="6_o6xl0"]
 [ext_resource type="Script" uid="uid://b4gclswb0xh8t" path="res://scripts/input_manager.gd" id="7_o6xl0"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o6xl0"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
+size = Vector2(409, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o6xl0"]
 size = Vector2(66, 92)
@@ -64,10 +65,11 @@ script = ExtResource("4_jyhfs")
 script = ExtResource("5_tbgi4")
 
 [node name="Area2D" type="Area2D" parent="PlayerHand"]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHand/Area2D"]
-position = Vector2(320, 330)
-shape = SubResource("WorldBoundaryShape2D_o6xl0")
+position = Vector2(300, 360)
+shape = SubResource("RectangleShape2D_tipki")
 
 [node name="Deck" type="Node2D" parent="."]
 z_index = -2
@@ -104,5 +106,5 @@ script = ExtResource("7_o6xl0")
 offset_right = 8.0
 offset_bottom = 8.0
 
-[connection signal="area_entered" from="PlayerHand/Area2D" to="PlayerHand" method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="PlayerHand/Area2D" to="PlayerHand" method="_on_area_2d_area_exited"]
+[connection signal="mouse_entered" from="PlayerHand/Area2D" to="PlayerHand" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="PlayerHand/Area2D" to="PlayerHand" method="_on_area_2d_mouse_exited"]

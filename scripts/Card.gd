@@ -3,7 +3,7 @@ extends Node2D
 signal hovered
 signal hovered_off
 
-var hand_pos
+var hand_pos: Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# All cards must be a child of CardManager or this will error

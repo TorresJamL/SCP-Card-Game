@@ -31,7 +31,13 @@ func update_hand_positions(speed):
 func calculate_card_position(index):
 	var x_offset = (player_hand.size() - 1) * CARD_WIDTH
 	var x_position = center_screen_x + index * CARD_WIDTH - x_offset / 2
-	var y_position = UP_HAND_Y_POS if hovered_on else DOWN_HAND_Y_POS
+	var y_position
+	if hovered_on:
+		y_position = UP_HAND_Y_POS
+	elif not hovered_on:
+		y_position = DOWN_HAND_Y_POS
+	else:
+		print("Conditional Execution Failure")
 	return Vector2(x_position, y_position)
 
 func animate_card_to_position(card, pos, speed):
@@ -43,13 +49,18 @@ func remove_card_from_hand(card):
 		player_hand.erase(card)
 		update_hand_positions(DEFAULT_DRAW_SPEED)
 
-func _on_area_2d_area_entered(area):
+func _on_area_2d_mouse_entered():
+	print("Entered area")
 	if not hovered_on:
+		print("Hovering")
 		hovered_on = true
-		update_hand_positions(DEFAULT_DRAW_SPEED)
+		$Area2D/CollisionShape2D.position.y = UP_HAND_Y_POS
+	update_hand_positions(DEFAULT_DRAW_SPEED)
 	
-func _on_area_2d_area_exited(area):
+func _on_area_2d_mouse_exited():
+	print("Exited area")
 	if hovered_on:
+		print("not Hover")
 		hovered_on = false
-		update_hand_positions(DEFAULT_DRAW_SPEED)
-	
+		$Area2D/CollisionShape2D.position.y = DOWN_HAND_Y_POS
+	update_hand_positions(DEFAULT_DRAW_SPEED)
