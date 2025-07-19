@@ -27,11 +27,18 @@ func raycast_at_cursor():
 	parameters.collide_with_areas = true
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
+		print(result[0])
 		var result_collision_mask = result[0].collider.collision_mask
+		if result_collision_mask == 32 and result.size() > 1:
+			result_collision_mask = result[1].collider.collision_mask
 		if result_collision_mask == COLLISON_MASK_CARD:
+			print("result_collision_mask == COLLISON_MASK_CARD")
 			var card_found = result[0].collider.get_parent()
 			if card_found:
 				card_manager_ref.start_drag(card_found)
 		elif result_collision_mask == COLLISON_MASK_DECK:
+			print("result_collision_mask == COLLISON_MASK_DECK")
 			# Deck clicked
 			deck_ref.draw_card()
+		else:
+			print(result_collision_mask)

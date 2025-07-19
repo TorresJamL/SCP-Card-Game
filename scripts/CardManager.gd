@@ -9,7 +9,7 @@ var screen_size # Should be settable in options
 var card_being_dragged
 var is_hovering_on_card
 var player_hand_ref
-
+var offset = Vector2(0,0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -19,10 +19,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if card_being_dragged:
-		var mouse_pos = get_global_mouse_position()
-		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), clamp(mouse_pos.y, 0, screen_size.y))
+		var mouse_pos = get_global_mouse_position() - offset
+		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
+			clamp(mouse_pos.y, 0, screen_size.y))
 
 func start_drag(card):
+	offset = get_global_mouse_position() - card.global_position
+	print("drag started")
 	card_being_dragged = card
 	card.scale = Vector2(GREATER_SCALE, GREATER_SCALE)
 
