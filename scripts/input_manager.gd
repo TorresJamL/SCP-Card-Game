@@ -5,10 +5,12 @@ signal left_mouse_button_released
 const COLLISON_MASK_CARD = 1
 const COLLISON_MASK_DECK = 4
 
+var player_hand_ref
 var card_manager_ref
 var deck_ref
 
 func _ready() -> void:
+	player_hand_ref = $"../PlayerHand"
 	card_manager_ref = $"../CardManager"
 	deck_ref = $"../Deck"
 
@@ -25,20 +27,36 @@ func raycast_at_cursor():
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	var result = space_state.intersect_point(parameters)
-	if result.size() > 0:
-		print(result[0])
-		var result_collision_mask = result[0].collider.collision_mask
-		if result_collision_mask == 32 and result.size() > 1:
-			result_collision_mask = result[1].collider.collision_mask
-		if result_collision_mask == COLLISON_MASK_CARD:
-			print("result_collision_mask == COLLISON_MASK_CARD")
-			var card_found = result[0].collider.get_parent()
-			if card_found:
-				card_manager_ref.start_drag(card_found)
-		elif result_collision_mask == COLLISON_MASK_DECK:
-			print("result_collision_mask == COLLISON_MASK_DECK")
-			# Deck clicked
-			deck_ref.draw_card()
-		else:
-			print(result_collision_mask)
+	var results = space_state.intersect_point(parameters)
+	### Different Approach |>
+	for result in results:
+		var result_collision_mask = result.collider.collision_mask
+		match result_collision_mask:
+			COLLISON_MASK_CARD:
+				var card_found = result.collider.get_parent()
+				if card_found and player_hand_ref.hovering: card_manager_ref.start_drag(card_found)
+				break;
+			COLLISON_MASK_DECK:
+				deck_ref.draw_card()
+				break;
+			_:
+				print("DefaultCase: " + str(result_collision_mask))
+				break;
+	### |<
+	#if results.size() > 0:
+		#print("Resulting Collision Mask: " + str(results[0]))
+		#var result_collision_mask = results[0].collider.collision_mask
+		#if result_collision_mask == 32 and results.size() > 1:
+			#result_collision_mask = results[1].collider.collision_mask
+			#print("New Resulting Collision Mask: " + str(result_collision_mask))
+			#print("Collider Parent: " + str(results[1].collider.parent))
+		#if result_collision_mask == COLLISON_MASK_CARD:
+			#var card_found = results[0].collider.get_parent()
+			#if card_found:
+				#print("Card Found: " + str(card_found))
+				#card_manager_ref.start_drag(card_found)
+		#elif result_collision_mask == COLLISON_MASK_DECK:
+			## Deck clicked
+			#deck_ref.draw_card()
+		#else:
+			#print("else_proc: " + str(result_collision_mask))

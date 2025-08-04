@@ -1,7 +1,8 @@
 const CARDS = {
 	# ATTACK, HEALTH #
 	"SecurityG" : [1, 5],
-	"TEMP_CARD" : [1, 3]
+	"TEMP_CARD" : [1, 3],
+	"SCP173" : [2,50]
 }
 ### GENERAL IDEAS
 # SCP Cards naturally cannot be seen till an action is casted upon it. Desirement : 9/10

@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://b4gclswb0xh8t" path="res://scripts/input_manager.gd" id="7_o6xl0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
-size = Vector2(409, 96)
+size = Vector2(409, 101)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o6xl0"]
 size = Vector2(66, 92)
