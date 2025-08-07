@@ -3,7 +3,7 @@ extends Node2D
 const CARD_SCENE_PATH = "res://scenes/card.tscn"
 const CARD_DRAW_SPEED = 0.4
 
-var player_deck = ['SecurityG','SecurityG','SCP173','TEMP_CARD']
+var player_deck = ['SecurityG','SecurityG','SCP173','TEMP_CARD','SCP173',]
 var card_DB_ref
 # Called when the node enters the scene tree for the first time.
 func _ready():

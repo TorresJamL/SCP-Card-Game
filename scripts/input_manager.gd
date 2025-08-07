@@ -41,7 +41,7 @@ func raycast_at_cursor():
 				break;
 			_:
 				print("DefaultCase: " + str(result_collision_mask))
-				break;
+				continue;
 	### |<
 	#if results.size() > 0:
 		#print("Resulting Collision Mask: " + str(results[0]))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://jr41nh18wb3y"]
+[gd_scene load_steps=13 format=3 uid="uid://jr41nh18wb3y"]
 
 [ext_resource type="Script" uid="uid://bwiwideveui77" path="res://scripts/CardManager.gd" id="1_745mg"]
 [ext_resource type="PackedScene" uid="uid://bac5e474yqat6" path="res://scenes/CardSlot.tscn" id="3_sugp2"]
@@ -7,6 +7,21 @@
 [ext_resource type="Script" uid="uid://c2ipf14thu0e3" path="res://scripts/PlayerHand.gd" id="5_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://bvcgwkfry6dd" path="res://assets/art/cardback.png" id="6_o6xl0"]
 [ext_resource type="Script" uid="uid://b4gclswb0xh8t" path="res://scripts/input_manager.gd" id="7_o6xl0"]
+
+[sub_resource type="Curve" id="Curve_o6xl0"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 2.0, 0, 1, Vector2(1, 1), 2.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_tipki"]
+_limits = [-1.0, 0.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 1.99061, 0, 1, Vector2(0.502359, 0), 0.0, 0.0, 0, 0, Vector2(1, -1), -2.00948, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_85g3d"]
+_data = [Vector2(0, 0), 0.0, 4.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -4.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
 size = Vector2(409, 101)
@@ -63,6 +78,9 @@ script = ExtResource("4_jyhfs")
 
 [node name="PlayerHand" type="Node2D" parent="."]
 script = ExtResource("5_tbgi4")
+curve_width = SubResource("Curve_o6xl0")
+curve_height = SubResource("Curve_tipki")
+curve_rotation = SubResource("Curve_85g3d")
 
 [node name="Area2D" type="Area2D" parent="PlayerHand"]
 collision_layer = 4
